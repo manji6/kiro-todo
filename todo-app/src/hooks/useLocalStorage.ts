@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 /**
  * ローカルストレージと同期するカスタムフック
@@ -12,16 +12,14 @@ export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, (value: T | ((val: T) => T)) => void, string | null] {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
   const [error, setError] = useState<string | null>(null);
 
-  // ローカルストレージから値を読み込む
-  const loadFromStorage = useCallback(() => {
+  // 初期値を計算する関数（useStateの初期化関数として使用）
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       // ローカルストレージが利用できない場合の処理（要件6.4）
       if (typeof window === 'undefined' || !window.localStorage) {
         console.warn('ローカルストレージが利用できません');
-        setError('ローカルストレージが利用できません');
         return initialValue;
       }
 
@@ -48,17 +46,9 @@ export function useLocalStorage<T>(
       return parsedItem;
     } catch (err) {
       console.error(`ローカルストレージからの読み込みエラー (key: ${key}):`, err);
-      setError(`データの読み込みに失敗しました: ${err instanceof Error ? err.message : 'Unknown error'}`);
       return initialValue;
     }
-  }, [key, initialValue]);
-
-  // コンポーネントマウント時にローカルストレージから値を読み込み
-  useEffect(() => {
-    const loadedValue = loadFromStorage();
-    setStoredValue(loadedValue);
-    setError(null);
-  }, [loadFromStorage]);
+  });
 
   // 値を設定してローカルストレージに保存する関数
   const setValue = useCallback(
@@ -92,20 +82,6 @@ export function useLocalStorage<T>(
     },
     [key, storedValue]
   );
-
-  // ストレージをクリアする関数
-  const clearStorage = useCallback(() => {
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.removeItem(key);
-        setStoredValue(initialValue);
-        setError(null);
-      }
-    } catch (err) {
-      console.error(`ローカルストレージのクリアエラー (key: ${key}):`, err);
-      setError(`データのクリアに失敗しました: ${err instanceof Error ? err.message : 'Unknown error'}`);
-    }
-  }, [key, initialValue]);
 
   return [storedValue, setValue, error];
 }

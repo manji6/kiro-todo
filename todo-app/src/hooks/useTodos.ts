@@ -13,25 +13,8 @@ export function useTodos() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 初期化時にローカルストレージからデータを読み込み
-  useEffect(() => {
-    const loadInitialTodos = async () => {
-      setIsLoading(true);
-      try {
-        const loadedTodos = TodoService.loadTodos();
-        setTodos(loadedTodos);
-        setError(null);
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'データの読み込みに失敗しました';
-        setError(errorMessage);
-        console.error('初期データの読み込みエラー:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadInitialTodos();
-  }, [setTodos]);
+  // useLocalStorageが既にローカルストレージからデータを読み込んでいるため、
+  // 追加の初期化は不要
 
   /**
    * 新しいTODOアイテムを追加する（要件1.2, 1.4）
