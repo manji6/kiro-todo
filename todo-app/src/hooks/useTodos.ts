@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { Todo, CreateTodoInput, TodoUpdate } from '@/types';
 import { TodoService } from '@/services';
 import { useLocalStorage } from './useLocalStorage';
