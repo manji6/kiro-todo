@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TODO管理アプリ
 
-## Getting Started
+シンプルで使いやすいTODO管理アプリケーションです。Next.js、TypeScript、TailwindCSSを使用して構築されています。
 
-First, run the development server:
+## 🌐 ライブデモ
+
+**[https://manji6.github.io/kiro-todo/](https://manji6.github.io/kiro-todo/)**
+
+## ✨ 機能
+
+- ✅ TODOの追加、編集、削除
+- ✅ 完了状態の切り替え
+- ✅ ローカルストレージでのデータ永続化
+- ✅ レスポンシブデザイン（モバイル対応）
+- ✅ ダークモード対応
+- ✅ 統計情報と進捗表示
+- ✅ キーボードナビゲーション対応
+- ✅ アクセシビリティ対応
+
+## 🚀 開発環境での実行
 
 ```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) でアプリケーションが起動します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ 技術スタック
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **フレームワーク**: Next.js 15 (App Router)
+- **言語**: TypeScript
+- **スタイリング**: TailwindCSS
+- **状態管理**: React Hooks (カスタムフック)
+- **データ永続化**: ローカルストレージ
+- **デプロイ**: GitHub Pages + GitHub Actions
 
-## Learn More
+## 📦 ビルドとデプロイ
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# 本番用ビルド
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 静的サイト生成
+npm run export
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 開発
 
-## Deploy on Vercel
+```bash
+# リンターの実行
+npm run lint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 型チェック
+npx tsc --noEmit
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 使い方
+
+1. **TODOの追加**: 上部のフォームにタスクを入力して「TODOを追加」ボタンをクリック
+2. **完了切り替え**: チェックボックスをクリックしてタスクの完了状態を切り替え
+3. **編集**: TODOのタイトルをクリックしてインライン編集
+4. **削除**: ゴミ箱アイコンをクリックしてTODOを削除
+5. **データ保存**: すべての変更は自動的にブラウザに保存されます
+
+## 🎯 今後の予定
+
+- [ ] メール送信機能
+- [ ] カテゴリ分け機能
+- [ ] 優先度設定
+- [ ] 検索・フィルター機能
+- [ ] データエクスポート機能
+
+## 📄 ライセンス
+
+MIT License
