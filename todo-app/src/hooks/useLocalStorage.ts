@@ -32,11 +32,11 @@ export function useLocalStorage<T>(
       
       // 日付オブジェクトの復元処理
       if (Array.isArray(parsedItem)) {
-        return parsedItem.map((item: any) => {
-          if (item && typeof item === 'object' && item.createdAt) {
+        return parsedItem.map((item: unknown) => {
+          if (item && typeof item === 'object' && item !== null && 'createdAt' in item) {
             return {
               ...item,
-              createdAt: new Date(item.createdAt),
+              createdAt: new Date((item as { createdAt: string }).createdAt),
             };
           }
           return item;

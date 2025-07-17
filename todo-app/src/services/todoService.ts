@@ -70,18 +70,24 @@ export class TodoService {
         return [];
       }
 
-      return parsedTodos.map((todo: any) => {
+      return parsedTodos.map((todo: unknown) => {
         // 必須フィールドの存在チェック
-        if (!todo.id || !todo.title || typeof todo.completed !== 'boolean') {
+        if (!todo || typeof todo !== 'object' || !('id' in todo) || !('title' in todo) || !('completed' in todo)) {
+          console.warn('不正なTODOデータを検出しました:', todo);
+          return null;
+        }
+
+        const todoObj = todo as { id: string; title: string; completed: boolean; createdAt?: string };
+        if (!todoObj.id || !todoObj.title || typeof todoObj.completed !== 'boolean') {
           console.warn('不正なTODOデータを検出しました:', todo);
           return null;
         }
 
         return {
-          id: todo.id,
-          title: todo.title,
-          completed: todo.completed,
-          createdAt: new Date(todo.createdAt || Date.now()),
+          id: todoObj.id,
+          title: todoObj.title,
+          completed: todoObj.completed,
+          createdAt: new Date(todoObj.createdAt || Date.now()),
         };
       }).filter((todo): todo is Todo => todo !== null);
       
